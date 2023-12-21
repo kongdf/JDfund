@@ -54,7 +54,7 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-pnpm-store-
             - name: Install app dependencies and build it
-              run: pnpm i && pnpm bundle
+              run: pnpm i && pnpm run tauri build  
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}

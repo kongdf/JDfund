@@ -44,13 +44,13 @@ jobs:
       - uses: actions/checkout@v4
  
      # 安装 Node.js
-      - name: Setup node
+      - name: 安装 node
         uses: actions/setup-node@v4
         with:
           node-version: 21
  
       # 安装 Rust
-      - name: Install Rust stable
+      - name: 安装 Rust 
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
@@ -64,18 +64,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
  
-      # 可选，如果需要将 Rust 编译为 wasm，则安装 wasm-pack
-      - uses: jetli/wasm-pack-action@v0.3.0
-        with:
-          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
-          version: v0.9.1
- 
-      # 可选，如果需要使用 rsw 构建 wasm，则安装 rsw
-      - name: Install rsw
-        run: cargo install rsw
- 
       # 获取 yarn 缓存路径
-      - name: Get yarn cache directory path
+      - name: 获取 yarn 缓存路径
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
  

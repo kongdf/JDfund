@@ -1,0 +1,37 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "shell:allow-open",
+    "core:window:allow-start-dragging",
+    "core:window:allow-close",
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "https://api.jdjygold.com/gw/generic/hj/h5/m/latestPrice",
+          "method": "GET",
+          "allow-fetch-read-body": true
+        },
+        {
+          "url": "https://api.jdjygold.com/gw2/generic/jrm/h5/m/stdLatestPrice?productSku=1961543816",
+          "method": "post",
+          "allow-fetch-read-body": true
+        }
+      ]
+    },
+    {
+      "identifier": "websocket:default",
+      "allow": [
+        {
+          "url": "ws://quote.tradeswitcher.com/quote-b-ws-api"
+        }
+      ]
+    }
+  ]
+}

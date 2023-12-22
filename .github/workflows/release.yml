@@ -61,6 +61,12 @@ jobs:
         with:
           toolchain: stable
 
+      - name: Install aarch64 target
+        run: rustup target add aarch64-apple-darwin
+
+      - name: Install x86_64 target
+        run: rustup target add x86_64-apple-darwin
+
       # 使用 Rust 缓存，加快安装速度
       - uses: Swatinem/rust-cache@v1
 

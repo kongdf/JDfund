@@ -54,7 +54,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: "SGP"
+          releaseName: "JDfund"
           releaseBody: "直接下载安装就可."
           releaseDraft: false
           prerelease: false

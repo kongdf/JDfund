@@ -3039,7 +3039,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sgp"
+name = "JDfund"
 version = "0.1.0"
 dependencies = [
  "serde",

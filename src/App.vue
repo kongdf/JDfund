@@ -13,22 +13,36 @@ const state = reactive({
   priceld:""
 });
 
-
-const initWebsocket=async()=>{
-  ws = await WebSocket.connect('wss://webhqv1.jrjr.com:39920/ws');
-  ws.addListener((msg) => {
-  if (msg.data) {
-    let data = JSON.parse(msg.data)
-    if (data && data.length) {
-      if (data[0].c == 'XAU') {
-        state.priceld=data[0].a
-        console.log('Received Message:', data[0].a);
-      }
-    }
-  }
-
-});
+function throttle(func, delay) {
+    let timer = null;
+    return function (...args) {
+        if (!timer) {
+            func.apply(this, args);
+            timer = setTimeout(() => {
+                timer = null;
+            }, delay);
+        }
+    };
 }
+
+
+const initWebsocket = async () => {
+    // 假设 WebSocket 有 connect 方法
+     ws = await WebSocket.connect('wss://webhqv1.jrjr.com:39920/ws');
+    const handleMessage = throttle((msg) => {
+        if (msg.data) {
+            let data = JSON.parse(msg.data);
+            if (data && data.length) {
+                if (data[0].c === 'XAU') {
+                    state.priceld = data[0].a;
+                    console.log('Received Message:', data[0].a);
+                }
+            }
+        }
+    }, 300); // 每 100 毫秒处理一次消息
+
+    ws.addListener(handleMessage);
+};
 
 
 
@@ -73,7 +87,7 @@ const close = async () => {
 
 <template>
     <div data-tauri-drag-region style="margin-top: 3px; cursor: default" class="red">
-    伦敦金：{{ state.priceld }}
+    XAU：{{ state.priceld }}
   </div>
   <div data-tauri-drag-region style="margin-top: 3px; cursor: default" class="red">
     民生：{{ state.price }}

@@ -1,6 +1,6 @@
 [package]
-name = "jdf"
-version = "0.1.0"
+name = "JDfund"
+version = "2.0.0"
 description = "A Tauri App"
 authors = ["you"]
 edition = "2021"

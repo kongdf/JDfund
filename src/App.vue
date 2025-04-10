@@ -3,14 +3,35 @@ import { reactive } from "vue";
 import { fetch } from "@tauri-apps/plugin-http";
 import WebSocket from "@tauri-apps/plugin-websocket";
 import { getCurrentWindow } from "@tauri-apps/api/window";
-
+var ws;
 const state = reactive({
   price: "",
   priceZS: "",
   color: "",
   color2: "",
   priceDP: "",
+  priceld:""
 });
+
+
+const initWebsocket=async()=>{
+  ws = await WebSocket.connect('wss://webhqv1.jrjr.com:39920/ws');
+  ws.addListener((msg) => {
+  if (msg.data) {
+    let data = JSON.parse(msg.data)
+    if (data && data.length) {
+      if (data[0].c == 'XAU') {
+        state.priceld=data[0].a
+        console.log('Received Message:', data[0].a);
+      }
+    }
+  }
+
+});
+}
+
+
+
 
 const getJDPrice = async () => {
   const data = await fetch(
@@ -44,25 +65,20 @@ getPrice();
 setInterval(() => {
   getPrice();
 }, 3000);
-
+initWebsocket()
 const close = async () => {
   await getCurrentWindow().close();
 };
 </script>
 
 <template>
-  <div
-    data-tauri-drag-region
-    style="margin-top: 3px; cursor: default"
-    class="red"
-  >
+    <div data-tauri-drag-region style="margin-top: 3px; cursor: default" class="red">
+    伦敦金：{{ state.priceld }}
+  </div>
+  <div data-tauri-drag-region style="margin-top: 3px; cursor: default" class="red">
     民生：{{ state.price }}
   </div>
-  <div
-    data-tauri-drag-region
-    style="margin-top: 0px; cursor: default"
-    class="red"
-  >
+  <div data-tauri-drag-region style="margin-top: 0px; cursor: default" class="red">
     浙商：{{ state.priceZS }}
   </div>
   <div class="close" @click="close">关闭</div>

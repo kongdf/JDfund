@@ -6,8 +6,7 @@
     "main"
   ],
   "permissions": [
-    "core:default",
-    "shell:allow-open",
+    "core:default", 
     "core:window:allow-start-dragging",
     "core:window:allow-close",
     {
@@ -25,13 +24,7 @@
         }
       ]
     },
-    {
-      "identifier": "websocket:default",
-      "allow": [
-        {
-          "url": "ws://quote.tradeswitcher.com/quote-b-ws-api"
-        }
-      ]
-    }
+    "http:default",
+    "websocket:default"
   ]
 }

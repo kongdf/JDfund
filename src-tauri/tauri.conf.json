@@ -1,9 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "JDfund",
-  "version": "1.0.0",
-  "identifier": "com.JDfund.app",
-  "mainBinaryName": "JDfund",
+  "productName": "jdf",
+  "version": "0.1.0",
+  "identifier": "com.jdf.app",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",

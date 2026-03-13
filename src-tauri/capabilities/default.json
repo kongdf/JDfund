@@ -3,12 +3,28 @@
   "identifier": "default",
   "description": "Capability for the main window",
   "windows": [
-    "main"
+    "main",
+    "setting"
   ],
   "permissions": [
-    "core:default", 
+    "core:default",
     "core:window:allow-start-dragging",
     "core:window:allow-close",
+    "core:window:allow-create",
+    "core:webview:allow-create-webview-window",
+    "core:tray:default",
+    "core:tray:allow-new",
+    "core:tray:allow-set-menu",
+    "core:tray:allow-set-icon",
+    "core:menu:default",
+    "core:menu:allow-new",
+    "core:app:allow-default-window-icon",
+    "core:tray:allow-set-show-menu-on-left-click",
+    "core:menu:allow-create-default",
+    "core:event:allow-emit-to",
+    "core:event:allow-listen",
+    "core:window:allow-get-all-windows",
+    "core:window:allow-set-size",
     {
       "identifier": "http:default",
       "allow": [
@@ -18,18 +34,19 @@
           "allow-fetch-read-body": true
         },
         {
-          "url": "https://api.jdjygold.com/gw2/generic/jrm/h5/m/stdLatestPrice?productSku=1961543816",
-          "method": "post",
+          "url": "https://api.jdjygold.com/gw2/generic/jrm/h5/m/stdLatestPrice",
+          "method": "POST",
           "allow-fetch-read-body": true
         },
         {
-          "url": "https://api.jdjygold.com/gw2/generic/jrm/h5/m/icbcLatestPrice?productSku=2005453243",
-          "method": "post",
+          "url": "https://api.jdjygold.com/gw2/generic/jrm/h5/m/icbcLatestPrice",
+          "method": "POST",
           "allow-fetch-read-body": true
         }
       ]
     },
     "http:default",
-    "websocket:default"
+    "websocket:default",
+    "http:default"
   ]
 }

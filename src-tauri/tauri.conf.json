@@ -12,15 +12,17 @@
   "app": {
     "windows": [
       {
+        "label": "main",
         "fullscreen": false,
-        "resizable": true,
-        "width": 20,
-        "height": 20,
+        "resizable": false,
+        "width": 100,
+        "height": 100,
         "transparent": true,
         "alwaysOnTop": true,
-        "hiddenTitle": true,
+        "hiddenTitle": false,
         "decorations": false,
-        "skipTaskbar":true 
+        "skipTaskbar": true,
+        "focus": false
       }
     ],
     "security": {

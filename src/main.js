@@ -1,4 +1,5 @@
-import { createApp } from "vue";
+import { createApp} from "vue";
 import App from "./App.vue";
-
-createApp(App).mount("#app");
+import router from "./router";
+window.addEventListener("contextmenu", (e) => e.preventDefault(), false);
+createApp(App).use(router).mount("#app");

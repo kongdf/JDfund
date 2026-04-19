@@ -47,6 +47,7 @@
     },
     "http:default",
     "websocket:default",
-    "http:default"
+    "http:default",
+    "store:default"
   ]
 }

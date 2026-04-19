@@ -2,6 +2,7 @@ use tauri::{
     menu::{Menu, MenuItem},
     tray::TrayIconBuilder,
     webview::WebviewWindowBuilder,
+    Manager,
 };
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
@@ -15,10 +16,10 @@ pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
             let quit_i = MenuItem::with_id(app, "quit", "关闭", true, None::<&str>)?;
-            let openSetting = MenuItem::with_id(app, "setting", "设置", true, None::<&str>)?;
-            let menu = Menu::with_items(app, &[ &openSetting,&quit_i,])?;
+            let open_setting = MenuItem::with_id(app, "setting", "设置", true, None::<&str>)?;
+            let menu = Menu::with_items(app, &[&open_setting, &quit_i])?;
 
-            let tray = TrayIconBuilder::new()
+            let _tray = TrayIconBuilder::new()
                 .icon(app.default_window_icon().unwrap().clone())
                 .menu(&menu)
                 .show_menu_on_left_click(true)
@@ -28,12 +29,19 @@ pub fn run() {
                         app.exit(0);
                     }
                     "setting" => {
-                        println!("点击设置");
-  
-                        let webview_window = tauri::WebviewWindowBuilder::new(app, "setting", tauri::WebviewUrl::App("/setting".into()))
-                        .title("设置")
-                        .inner_size(500.0, 100.0)
-                        .build(); 
+                        if let Some(w) = app.get_webview_window("setting") {
+                            let _ = w.show();
+                            let _ = w.set_focus();
+                        } else {
+                            let _ = WebviewWindowBuilder::new(
+                                app,
+                                "setting",
+                                tauri::WebviewUrl::App("/setting".into()),
+                            )
+                            .title("设置")
+                            .inner_size(500.0, 100.0)
+                            .build();
+                        }
                     }
                     _ => {
                         println!("menu item {:?} not handled", event.id);
@@ -45,6 +53,7 @@ pub fn run() {
         .plugin(tauri_plugin_websocket::init())
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_store::Builder::default().build())
         .invoke_handler(tauri::generate_handler![greet])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
